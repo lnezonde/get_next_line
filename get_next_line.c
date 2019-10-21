@@ -6,13 +6,13 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/18 12:56:44 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/21 19:00:32 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	find_line(char *rem_text, char *buf)
+static int	isline(char *rem_text)
 {
 	int		i;
 
@@ -20,9 +20,8 @@ static int	find_line(char *rem_text, char *buf)
 	while (rem_text[i])
 	{
 		if (rem_text[i] == '\n')
-			return (i);
+			return (1);
 	}
-	rem_text = ft_strjoin(rem_text, buf);
 	return (0);
 }
 
@@ -52,7 +51,7 @@ int			get_next_line(int fd, char **line)
 	int			ret;
 	int			i;
 
-	if ((i = find_line(rem_text, "")))
+	if (isline(rem_text))
 	{
 		*line = make_line(rem_text, i);
 		return (1);
@@ -60,17 +59,14 @@ int			get_next_line(int fd, char **line)
 	while (1)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
-		if (ret == 1)
+		if ((i = find_line(rem_text, buf)) != -1 && ret == BUFFER_SIZE)
 		{
-			if ((i = find_line(rem_text, buf)))
-			{
-				*line = make_line(rem_text, i);
-				return (1);
-			}
+			*line = make_line(rem_text, i);
+			return (1);
 		}
-		else if (ret == 0)
+		else if (ret < BUFFER_SIZE && ret >= 0)
 		{
-			*line = make_line(rem_text, ft_strlen(rem_text)+ 1);
+			*line = make_line(rem_text, ft_strlen(rem_text) + 1);
 			return (0);
 		}
 		else if (ret == -1)
