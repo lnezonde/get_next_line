@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/21 19:00:32 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/22 13:17:30 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,26 @@ static int	isline(char *rem_text)
 	while (rem_text[i])
 	{
 		if (rem_text[i] == '\n')
-			return (1);
+			return (i);
 	}
-	return (0);
+	return (-1);
 }
 
-static char	*make_line(char *rem_text, int i)
+static char	*find_line(char *rem_text, int len)
 {
-	int j;
-	int i2;
-	char *tmp;
+	char	*line;
+	int		i;
 
-	j = i;
-	i2 = 0;
-	if(!(tmp = malloc(sizeof(char) * (i + 1))))
-		return (NULL);
-	while (i2 < i)
+	i = 0;
+	line = malloc(sizeof(char) * len);
+	while (i < len)
 	{
-		tmp[i2] = rem_text[i2];
-		i2++;
+		line[i] = rem_text[i];
+		i++;
 	}
-	rem_text += (i + 1);
-	return (tmp);
+	line[len] = '\0';
+	rem_text += (len + 1);
+	return (line);
 }
 
 int			get_next_line(int fd, char **line)
@@ -51,26 +49,25 @@ int			get_next_line(int fd, char **line)
 	int			ret;
 	int			i;
 
-	if (isline(rem_text))
+	if ((i = isline(rem_text)) != -1)
 	{
-		*line = make_line(rem_text, i);
+		*line = find_line(rem_text, i);
 		return (1);
 	}
-	while (1)
+	while ((i = isline(rem_text)) != -1 && ret == BUFFER_SIZE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
-		if ((i = find_line(rem_text, buf)) != -1 && ret == BUFFER_SIZE)
-		{
-			*line = make_line(rem_text, i);
-			return (1);
-		}
-		else if (ret < BUFFER_SIZE && ret >= 0)
-		{
-			*line = make_line(rem_text, ft_strlen(rem_text) + 1);
-			return (0);
-		}
-		else if (ret == -1)
-			return (-1);
+		rem_text = ft_strjoin(rem_text, buf);
 	}
+	if (ret == BUFFER_SIZE)
+		*line = find_line(rem_text, i);
+	else if (ret < BUFFER_SIZE && ret >= 0)
+	{
+		*line = ft_strjoin(rem_text, buf);
+		return (0);
+	}
+	else if (ret == -1)
+			return (-1);
+	printf("%s \n", *line);
 	return (0);
 }

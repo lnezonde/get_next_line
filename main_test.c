@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 12:43:24 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/21 17:48:19 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/22 13:17:52 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	main(void)
 {
 	char *line;
 	int fd;
-	int res;
+	//int res = 0;
 	int i;
 
 	line = NULL;
@@ -24,11 +24,12 @@ int	main(void)
 	i = 0;
 	if ((fd = open("test.txt", O_RDONLY)) == -1)
 		return (0);
-	while ((res = get_next_line(fd, &line)))
+	/*while ((res = get_next_line(fd, &line)))
 	{
 		printf("test %s (%d) {%d} :  ", line, res, i);
 		i++;
-	}
-	printf("test %s (%d) :  ", line, res);
+	}*/
+	get_next_line(fd, &line);
+	//printf("test %s (%d) :  ", line, res);
 	return (0);
 }

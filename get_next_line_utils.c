@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:34:29 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/16 18:18:04 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/22 12:34:12 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ size_t	ft_strlen(const	char *s)
 		i++;
 	return (i);
 }
+
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	char	*s_new;
@@ -42,4 +43,27 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		s_new[i++] = s2[i2++];
 	s_new[i] = '\0';
 	return (s_new);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	char		*dst_cpy;
+	char		*src_cpy;
+
+	dst_cpy = (char*)dst;
+	src_cpy = (char*)src;
+	while (n--)
+		*dst_cpy++ = *src_cpy++;
+	return (dst);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*copy;
+	int		len;
+
+	len = ft_strlen(s1);
+	if (!(copy = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	return ((char*)(memcpy(copy, s1, len + 1)));
 }
