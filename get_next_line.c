@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/22 13:17:30 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/22 15:39:14 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static int	isline(char *rem_text)
 	{
 		if (rem_text[i] == '\n')
 			return (i);
+		i++;
 	}
 	return (-1);
 }
@@ -49,25 +50,24 @@ int			get_next_line(int fd, char **line)
 	int			ret;
 	int			i;
 
-	if ((i = isline(rem_text)) != -1)
-	{
-		*line = find_line(rem_text, i);
-		return (1);
-	}
-	while ((i = isline(rem_text)) != -1 && ret == BUFFER_SIZE)
+	ret = BUFFER_SIZE;
+	while ((i = isline(rem_text)) == -1 && ret == BUFFER_SIZE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
 		rem_text = ft_strjoin(rem_text, buf);
 	}
-	if (ret == BUFFER_SIZE)
+	if (i == -1 && ret == BUFFER_SIZE)
+	{
 		*line = find_line(rem_text, i);
-	else if (ret < BUFFER_SIZE && ret >= 0)
+		printf("%s \n", *line);
+		return (1);
+	}
+	if (ret < BUFFER_SIZE && ret >= 0)
 	{
 		*line = ft_strjoin(rem_text, buf);
 		return (0);
 	}
 	else if (ret == -1)
-			return (-1);
-	printf("%s \n", *line);
+		return (-1);
 	return (0);
 }
