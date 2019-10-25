@@ -24,12 +24,17 @@ int	main(void)
 	i = 0;
 	if ((fd = open("test.txt", O_RDONLY)) == -1)
 		return (0);
-	while ((res = get_next_line(fd, &line)) == 45)
-	{
-		printf("test %s (%d) {%d} :  ", line, res, i);
-		i++;
-	}
-	get_next_line(fd, &line);
-	printf("test %s (%d) :  ", line, res);
+	res = get_next_line(fd, &line);
+	
+	printf("%s (%d) \n", line, res);
+	res = get_next_line(fd, &line);
+	
+	printf("%s (%d) \n", line, res);
+	res = get_next_line(fd, &line);
+	
+	printf("%s (%d) \n", line, res);
+	res = get_next_line(fd, &line);
+	
+	printf("%s (%d) \n", line, res);
 	return (0);
 }
