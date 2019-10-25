@@ -66,7 +66,7 @@ int			get_next_line(int fd, char **line)
 	}
 	if (ret < BUFFER_SIZE && ret >= 0)
 	{
-		*line = ft_strjoin(rem_text, buf);
+		*line = rem_text;
 		return (0);
 	}
 	else if (ret == -1)
