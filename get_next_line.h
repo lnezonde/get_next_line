@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:35:22 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/22 14:50:32 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/28 14:32:39 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <sys/types.h> // a retirer
 # include <sys/stat.h> // a retirer
 # include <fcntl.h> // a retirer
-# define BUFFER_SIZE 4
 size_t	ft_strlen(const	char *s);
 char	*ft_strjoin(char const *s1, char const *s2);
 void	*ft_memcpy(void *dst, const void *src, size_t n);

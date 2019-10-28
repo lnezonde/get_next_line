@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/28 14:19:10 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/28 16:06:22 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ static char	*find_line(char **rem_text, int len)
 		i++;
 	}
 	line[len] = '\0';
+	*rem_text = NULL;
 	free(*rem_text);
 	*rem_text = ft_strdup(tmp + len + 1);
 	return (line);
@@ -54,18 +55,17 @@ int			get_next_line(int fd, char **line)
 	int			i;
 
 	ret = BUFFER_SIZE;
+	if (line == NULL)
+		return (-1);
+	if (BUFFER_SIZE == 0)
+		return (-1);
 	while ((i = isline(rem_text)) == -1 && ret == BUFFER_SIZE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
 		buf[ret] = '\0';
-		//if (ret != BUFFER_SIZE)
-			//printf("b:%s\n", buf);
-			//printf("r:%s\n", rem_text);
 		rem_text = ft_strjoin(rem_text, buf);
-		//printf("r2:%s\n", rem_text);
-
 	}
-	if (i != -1 && ret == BUFFER_SIZE)
+	if (i != -1)
 	{
 		*line = find_line(&rem_text, i);
 		return (1);
