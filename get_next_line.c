@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/22 15:39:14 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/28 14:19:10 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,13 @@ int			get_next_line(int fd, char **line)
 	while ((i = isline(rem_text)) == -1 && ret == BUFFER_SIZE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
+		buf[ret] = '\0';
+		//if (ret != BUFFER_SIZE)
+			//printf("b:%s\n", buf);
+			//printf("r:%s\n", rem_text);
 		rem_text = ft_strjoin(rem_text, buf);
+		//printf("r2:%s\n", rem_text);
+
 	}
 	if (i != -1 && ret == BUFFER_SIZE)
 	{

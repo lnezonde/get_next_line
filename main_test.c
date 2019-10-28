@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 12:43:24 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/22 15:17:05 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/28 14:22:05 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ int	main(void)
 	if ((fd = open("test.txt", O_RDONLY)) == -1)
 		return (0);
 	res = get_next_line(fd, &line);
-	
+
 	printf("%s (%d) \n", line, res);
 	res = get_next_line(fd, &line);
-	
+
 	printf("%s (%d) \n", line, res);
 	res = get_next_line(fd, &line);
-	
+
 	printf("%s (%d) \n", line, res);
 	res = get_next_line(fd, &line);
-	
+
 	printf("%s (%d) \n", line, res);
 	return (0);
 }
