@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/28 16:06:22 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/29 19:54:47 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,24 +26,19 @@ static int	isline(char *rem_text)
 	return (-1);
 }
 
-static char	*find_line(char **rem_text, int len)
+static char	*find_line(char *rem_text, int len)
 {
 	char	*line;
-	char	*tmp;
 	int		i;
 
 	i = 0;
-	tmp = *rem_text;
-	line = malloc(sizeof(char) * len);
+	line = malloc(sizeof(char) * (len + 1));
 	while (i < len)
 	{
-		line[i] = tmp[i];
+		line[i] = rem_text[i];
 		i++;
 	}
 	line[len] = '\0';
-	*rem_text = NULL;
-	free(*rem_text);
-	*rem_text = ft_strdup(tmp + len + 1);
 	return (line);
 }
 
@@ -55,19 +50,21 @@ int			get_next_line(int fd, char **line)
 	int			i;
 
 	ret = BUFFER_SIZE;
-	if (line == NULL)
-		return (-1);
-	if (BUFFER_SIZE == 0)
+	if (line == NULL || BUFFER_SIZE == 0)
 		return (-1);
 	while ((i = isline(rem_text)) == -1 && ret == BUFFER_SIZE)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
 		buf[ret] = '\0';
+		if (ret == 0)
+			rem_text = "";
 		rem_text = ft_strjoin(rem_text, buf);
 	}
 	if (i != -1)
 	{
-		*line = find_line(&rem_text, i);
+		*line = find_line(rem_text, i);
+		rem_text = ft_substr(rem_text, i + 1);
+		//*rem_text = ft_strdup(tmp + len + 1);
 		return (1);
 	}
 	if (ret < BUFFER_SIZE && ret >= 0)
