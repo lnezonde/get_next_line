@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:34:29 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/29 19:42:46 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/29 22:53:34 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (s_new);
 }
 
-void	*ft_memcpy(void *dst, const void *src, int n)
-{
-	char		*dst_cpy;
-	char		*src_cpy;
-
-	dst_cpy = (char*)dst;
-	src_cpy = (char*)src;
-	while (n--)
-		*dst_cpy++ = *src_cpy++;
-	return (dst);
-}
-
 char	*ft_substr(char *s, unsigned int start)
 {
 	char	*s_new;
@@ -73,19 +61,29 @@ char	*ft_substr(char *s, unsigned int start)
 	while (len-- && s[start])
 		s_new[i++] = s[start++];
 	s_new[i] = '\0';
-	if (s)
+	if (*s)
 		free (s);
 	s = NULL;
 	return (s_new);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup(char *src)
 {
 	char	*copy;
 	int		len;
+	int		i;
 
-	len = ft_strlen(s1);
+	i = 0;
+	len = ft_strlen(src);
 	if (!(copy = malloc(sizeof(char) * (len + 1))))
 		return (NULL);
-	return ((char*)(memcpy(copy, s1, len + 1)));
+	while (src[i])
+	{
+		copy[i] = src[i];
+		i++;
+	}
+	if (*src)
+		free(src);
+	copy[i] = '\0';
+	return (copy);
 }

@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 12:43:24 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/29 19:54:12 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/29 22:37:31 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main(void)
 	line = NULL;
 	fd = 0;
 	i = 0;
-	if ((fd = open("/Users/lnezonde/Desktop/get_next_line/42TESTERS-GNL/files/half_marge_bottom", O_RDONLY)) == -1)
+	if ((fd = open("/Users/lnezonde/Desktop/get_next_line/42TESTERS-GNL/files/empty_lines", O_RDONLY)) == -1)
 		return (0);
 	while ((res = get_next_line(fd, &line)) == 1)
 	{
@@ -30,10 +30,6 @@ int	main(void)
 		free(line);
 		line = NULL;
 	}
-	printf("%s (%d) \n", line, res);
-	free(line);
-	line = NULL;
-	res = get_next_line(fd, &line);
 	printf("%s (%d) \n", line, res);
 	free(line);
 	line = NULL;

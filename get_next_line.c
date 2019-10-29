@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/29 19:54:47 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/29 23:00:37 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int			get_next_line(int fd, char **line)
 {
 	static char	*rem_text = "";
 	char		buf[BUFFER_SIZE + 1];
+	char		*tmp;
 	int			ret;
 	int			i;
 
@@ -56,20 +57,20 @@ int			get_next_line(int fd, char **line)
 	{
 		ret = read(fd, buf, BUFFER_SIZE);
 		buf[ret] = '\0';
-		if (ret == 0)
-			rem_text = "";
-		rem_text = ft_strjoin(rem_text, buf);
+		tmp = ft_strdup(rem_text);
+		rem_text = ft_strjoin(tmp, buf);
 	}
 	if (i != -1)
 	{
 		*line = find_line(rem_text, i);
-		rem_text = ft_substr(rem_text, i + 1);
-		//*rem_text = ft_strdup(tmp + len + 1);
+		tmp = ft_strdup(rem_text);
+		rem_text = ft_substr(tmp, i + 1);
 		return (1);
 	}
 	if (ret < BUFFER_SIZE && ret >= 0)
 	{
 		*line = rem_text;
+		rem_text = "";
 		return (0);
 	}
 	else if (ret == -1)
