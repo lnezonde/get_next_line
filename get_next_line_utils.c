@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:34:29 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/29 22:53:34 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:39:30 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ char	*ft_strdup(char *src)
 	}
 	if (*src)
 		free(src);
+	src = NULL;
 	copy[i] = '\0';
 	return (copy);
 }

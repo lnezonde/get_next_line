@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/10/29 23:00:37 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/10/30 17:54:47 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,10 @@ int			get_next_line(int fd, char **line)
 		return (0);
 	}
 	else if (ret == -1)
+	{
+		rem_text = "";
 		return (-1);
+	}
+
 	return (0);
 }
