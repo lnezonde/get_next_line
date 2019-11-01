@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/11/01 16:09:21 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/11/01 15:54:47 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 static int	isline(char *rem_text)
 {
@@ -44,39 +44,39 @@ static char	*find_line(char *rem_text, int len)
 
 int			get_next_line(int fd, char **line)
 {
-	static char	*rem_text = NULL;
+	static char	*rem_text[10240];
 	char		buf[BUFFER_SIZE + 1];
 	int			ret;
 	int			i;
 
 
 	ret = BUFFER_SIZE;
-	if (line == NULL || BUFFER_SIZE == 0 || fd < 0)
+	if (line == NULL || BUFFER_SIZE <= 0 || fd < 0)
 		return (-1);
-	while ((i = isline(rem_text)) == -1 && ret == BUFFER_SIZE)
+	while ((i = isline(rem_text[fd])) == -1 && ret == BUFFER_SIZE)
 	{
 		if((ret = read(fd, buf, BUFFER_SIZE)) == -1)
 			return (-1);
 		buf[ret] = '\0';
-		rem_text = ft_strjoin(rem_text, buf);
+		rem_text[fd] = ft_strjoin(rem_text[fd], buf);
 	}
 	if (i != -1)
 	{
-		*line = find_line(rem_text, i);
-		rem_text = ft_substr(rem_text, i + 1);
+		*line = find_line(rem_text[fd], i);
+		rem_text[fd] = ft_substr(rem_text[fd], i + 1);
 		return (1);
 	}
 	if (ret < BUFFER_SIZE && ret >= 0)
 	{
-		*line = rem_text;
-		rem_text = NULL;
+		*line = rem_text[fd];
+		rem_text[fd] = NULL;
 		return (0);
 	}
 	else if (ret == -1)
 	{
-		if (rem_text)
-			free(rem_text);
-		rem_text = NULL;
+		if (rem_text[fd])
+			free(rem_text[fd]);
+		rem_text[fd] = NULL;
 		return (-1);
 	}
 	return (0);
