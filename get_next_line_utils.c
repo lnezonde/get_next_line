@@ -6,13 +6,13 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:34:29 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/11/01 15:48:44 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/11/01 16:56:54 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	ft_strlen(const	char *s)
+static int	ft_strlen(const	char *s)
 {
 	int i;
 
@@ -22,7 +22,7 @@ int	ft_strlen(const	char *s)
 	return (i);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char		*ft_strjoin(char *s1, char *s2)
 {
 	char	*s_new;
 	int		len_tt;
@@ -46,7 +46,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (s_new);
 }
 
-char	*ft_substr(char *s, unsigned int start)
+char		*ft_substr(char *s, unsigned int start)
 {
 	char	*s_new;
 	int len;
@@ -67,7 +67,7 @@ char	*ft_substr(char *s, unsigned int start)
 	return (s_new);
 }
 
-char	*ft_strdup(char *src)
+char		*ft_strdup(char *src)
 {
 	char	*copy;
 	int		len;

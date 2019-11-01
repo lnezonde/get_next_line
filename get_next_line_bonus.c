@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/11/01 15:54:47 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/11/01 16:59:36 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ static char	*find_line(char *rem_text, int len)
 
 int			get_next_line(int fd, char **line)
 {
-	static char	*rem_text[10240];
+	static char	*rem_text[OPEN_MAX];
 	char		buf[BUFFER_SIZE + 1];
 	int			ret;
 	int			i;
 
 
 	ret = BUFFER_SIZE;
-	if (line == NULL || BUFFER_SIZE <= 0 || fd < 0)
+	if (line == NULL || BUFFER_SIZE <= 0 || fd < 0 || fd > OPEN_MAX)
 		return (-1);
 	while ((i = isline(rem_text[fd])) == -1 && ret == BUFFER_SIZE)
 	{
