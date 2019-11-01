@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:44:01 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/11/01 16:59:36 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/11/01 18:48:49 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,35 +49,23 @@ int			get_next_line(int fd, char **line)
 	int			ret;
 	int			i;
 
-
 	ret = BUFFER_SIZE;
 	if (line == NULL || BUFFER_SIZE <= 0 || fd < 0 || fd > OPEN_MAX)
 		return (-1);
 	while ((i = isline(rem_text[fd])) == -1 && ret == BUFFER_SIZE)
 	{
-		if((ret = read(fd, buf, BUFFER_SIZE)) == -1)
+		if ((ret = read(fd, buf, BUFFER_SIZE)) == -1)
 			return (-1);
 		buf[ret] = '\0';
 		rem_text[fd] = ft_strjoin(rem_text[fd], buf);
 	}
-	if (i != -1)
-	{
-		*line = find_line(rem_text[fd], i);
-		rem_text[fd] = ft_substr(rem_text[fd], i + 1);
+	if (i != -1 && (*line = find_line(rem_text[fd], i)) &&
+	(rem_text[fd] = ft_substr(rem_text[fd], i + 1)))
 		return (1);
-	}
-	if (ret < BUFFER_SIZE && ret >= 0)
+	else
 	{
 		*line = rem_text[fd];
 		rem_text[fd] = NULL;
 		return (0);
 	}
-	else if (ret == -1)
-	{
-		if (rem_text[fd])
-			free(rem_text[fd]);
-		rem_text[fd] = NULL;
-		return (-1);
-	}
-	return (0);
 }

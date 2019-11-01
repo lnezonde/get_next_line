@@ -6,13 +6,12 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:35:22 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/11/01 16:57:28 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/11/01 17:15:12 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_BONUS_H
 # define GET_NEXT_LINE_BONUS_H
-
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>

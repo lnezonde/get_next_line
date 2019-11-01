@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:34:29 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/11/01 16:56:54 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/11/01 18:23:54 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char		*ft_strjoin(char *s1, char *s2)
 	while (s2 && s2[i2])
 		s_new[i++] = s2[i2++];
 	if (s1)
-		free (s1);
+		free(s1);
 	s1 = NULL;
 	s_new[i] = '\0';
 	return (s_new);
@@ -49,8 +49,8 @@ char		*ft_strjoin(char *s1, char *s2)
 char		*ft_substr(char *s, unsigned int start)
 {
 	char	*s_new;
-	int len;
-	int	i;
+	int		len;
+	int		i;
 
 	i = 0;
 	len = ft_strlen(s);
@@ -62,29 +62,7 @@ char		*ft_substr(char *s, unsigned int start)
 		s_new[i++] = s[start++];
 	s_new[i] = '\0';
 	if (s)
-		free (s);
+		free(s);
 	s = NULL;
 	return (s_new);
-}
-
-char		*ft_strdup(char *src)
-{
-	char	*copy;
-	int		len;
-	int		i;
-
-	i = 0;
-	len = ft_strlen(src);
-	if (!(copy = malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	while (src && src[i])
-	{
-		copy[i] = src[i];
-		i++;
-	}
-	if (src)
-		free(src);
-	src = NULL;
-	copy[i] = '\0';
-	return (copy);
 }

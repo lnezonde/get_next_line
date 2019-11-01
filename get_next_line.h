@@ -6,7 +6,7 @@
 /*   By: lnezonde <lnezonde@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 13:35:22 by lnezonde          #+#    #+#             */
-/*   Updated: 2019/11/01 16:57:03 by lnezonde         ###   ########.fr       */
+/*   Updated: 2019/11/01 18:03:50 by lnezonde         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <limits.h>
 
 char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, unsigned int start);
